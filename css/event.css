@@ -2,8 +2,9 @@
 header{
     background-image: url("../img/e_header.png");
 }
-.thumbnail img{
-	max-width: 200px;
+
+.col-md-4 img{
+    min-height:214px; 
 }
 .col-md-4{
 	min-width: 560px;
