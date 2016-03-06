@@ -77,5 +77,5 @@ footer{
     display: inline-block;
 }
 .col-md-4 img{
-    max-height:150px; 
+    min-height:214px; 
 }
