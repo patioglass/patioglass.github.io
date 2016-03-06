@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'font';
-    src: url('../fonts/rogotype.otf');
+    src: url('../fonts/OmePlus-P-Gothic-light1.00000.ttf');
 }
 *{
     margin: 0;
@@ -9,7 +9,7 @@
     left: 0;
 }
 body{
-	font-family: font;
+	font-family: "YuGothic";
 	font-size: 18px;
 }
 
