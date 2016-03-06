@@ -1,0 +1,105 @@
+
+
+
+body{
+    margin: 0;
+    padding: 0;
+}
+li{
+    list-style: none;
+}
+.wrapper{
+    margin: 0 auto;
+    text-align: center;
+}
+.header{
+    width:100%;
+    background:#444;
+}
+.header img{
+    height: 400px;
+    
+}
+.detail_wrapper{
+    margin: o auto;
+    margin-top:60px; 
+    text-align: center;
+}
+.detail_wrapper img{
+    height: 400px;
+}
+.detail{
+    vertical-align: top;
+    margin: 0 auto;
+    text-align: center;
+    display: inline-block;
+    width: 40%;
+    padding: 50px 0px;
+    border:1px solid #ccc;
+}
+.m3{
+    margin-top: 50px;
+}
+.track_wrapper{
+    text-align: center;
+    background: #444;
+    color: #fff;
+}
+.track{
+    margin: 0 auto;
+    width: 40%;
+    
+    margin-top:100px;
+    display: inline-block;
+}
+.track ul{
+    width: 60%;
+    text-align: left;
+    padding: 50px 50px;
+    margin: 0 auto;
+}
+.track li{
+    width: 100%;
+    font-size: 25px;
+    margin-top: 10px;
+    padding: 0px 30px;
+    border-bottom: 1px solid #fff;
+}
+.track p{
+    font-size: 20px;
+}
+.member_wrapper{
+    text-align: center;
+    display: inline-block;
+    width: 40%;
+    vertical-align: top;
+    margin-top:100px;
+}
+.member{
+    border: 1px solid #ccc;
+    margin: 0 auto;
+}
+.member li{
+    width: 200px;
+    display: inline-block;
+    margin-bottom: 30px;
+}
+.member li a{
+    color: #fff;
+}
+
+.member li a:hover{
+    color: #ff1818;
+}
+.member li p {
+    padding:0px;
+    margin:0px;
+}
+.member img{
+    width: 50%;
+    border:3px solid #7e726a;
+    border-radius: 140px;
+}
+.twitter-share-button{
+    float: right;
+}

@@ -1,0 +1,73 @@
+@font-face{
+    font-family:'rogotype';
+    src:url(./rogotype.otf) format('opentype');
+}
+body{
+	margin: 0;
+	padding: 0;
+	font-family: "rogotype";
+	background:url("header.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+a{
+    color: deeppink;
+}
+a:hover{
+    color:deepskyblue;
+}
+.wrapper{
+	margin: 0 auto;
+	text-align: center;
+}
+.header{
+	background:rgba(255,255,255,0.5);
+	padding: 20px;
+	min-width:550px;
+    
+	margin: 0 auto;
+	margin-top: 40px;
+	border-radius: 7px;
+    border: 1px solid #ccc;
+    text-shadow: 1px 0px 1px #ffffff,
+    1px 0px 0.1px #fff,
+    0px 0px 0px #fff,
+    0px 0.4px 0px #887f7f;
+}
+.patio{
+	border-radius: 160px;
+	width:100px;
+}
+.social_button{
+    margin-top: 5px;
+}
+.social_button img{
+    width: 30px;
+    border-radius: 100px;
+    background: #fff;
+}
+.deliverable{
+    padding-bottom: 50px;
+    margin: 0 auto;
+    text-align: center;
+}
+.deliverable ul{
+	margin: 0 auto;
+    text-align: left;
+    min-width: 570px;
+}
+.deliverable a{
+    vertical-align: top;
+	border-radius: 10px;
+	display: inline-block;
+	font-size: 70%;
+	width: 25%;
+	padding: 20px;
+	text-align: left;
+	margin-top: 13px; 
+	list-style: none;
+	border: 1px solid #ccc;
+}
+.deliverable a:hover{
+	opacity: 0.6;
+}

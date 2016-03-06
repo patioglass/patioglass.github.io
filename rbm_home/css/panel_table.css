@@ -1,0 +1,14 @@
+.panel__wrapper{
+    
+}
+.panel__wrapper li{
+    display: inline-block;
+    margin-right: 9%;
+    width: 40%;
+}
+.panel__wrapper a:hover{
+    opacity: 0.5;
+}
+.panel__wrapper li img{
+    width:100%;
+}

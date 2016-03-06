@@ -1,0 +1,25 @@
+.event__wrapper{
+    width: 980px;
+
+}
+.event__list p{
+    width: 400px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.event__list h3{
+    background-color: #ff9f89;
+    padding: 20px;
+    text-align: left;
+}
+
+.event__list li{
+    text-align: left;
+    display: inline-block;
+    list-style: none;
+    border: 2px solid #000;
+}
+.event__list li>img{
+    width:200px;
+}

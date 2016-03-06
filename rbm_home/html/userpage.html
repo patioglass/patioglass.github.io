@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8"> 
+        <title>会員ページ -RBM</title>
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+        <link rel="stylesheet" type="text/css" href="../css/userpage.css">
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://vuejs.org/js/vue.min.js"></script>
+        <script src="../js/purl.js"></script>
+        <script src="../js/userpage.js"></script>
+	</head>
+	<body>
+		<div class="wrapper">
+            
+            <div class="h__message">
+                <a href="../index.html">
+                    <img src="../img/logo.png" class="logo">
+                </a>
+                <h1>ーRBMー立命館琵琶湖草津漫画研究会</h1>
+                <hr>
+            </div>
+            <div class="g__menu">
+                <ul>
+                    <li><a href="../index.html" class="lsf-icon" id="home" title="ホーム">ホーム</a></li>
+                    <li><a href="http://ritsrbm.blog129.fc2.com/" target="_blank" class="lsf-icon" id="pen"title="ブログ">ブログ</a></li>
+                    <li><a href="./activity.html" class="lsf-icon" id="memo" title="活動内容">活動内容</a></li>
+                    <li><a href="./link.html" class="lsf-icon" id="link" title="リンク">リンク</a></li>
+                    <li><a href="./member.html" class="lsf-icon member__page" id="group" title="会員紹介">会員紹介</a></li>
+                    <li><a href="./contact.html" class="lsf-icon" id="mail"title="連絡先">連絡先</a></li>
+                </ul>
+            </div>
+            <div class="header__wrapper">
+                <div class="h__content"> 
+                    
+                    <img src="../img/header.jpg">
+                </div>
+            </div> 
+
+            
+            
+			<div class="main__wrapper">
+                <div class="search__member" v-repeat="member">
+                    <div class="l__member__detail">
+                        <img src="{{img}}">
+                        <h2>{{name}}</h2>
+                        <div class="search__wrapper">
+                            <div class="search__top">
+                                <a href="n_top_pictures.html?illustrator={{url_name}}">
+                                    <div class="top__pict__link">
+                                        <div class="lsf-icon icon" id="notify"></div>
+                                        <p>{{name}}さんの<br>トップ絵を検索する</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="member__search">
+                                <form action="rbm_member.html" method="get">
+                                    <h3>他のRBM会員を調べる</h3>
+                                    <input type="search" name="member">
+                                    <button class="name__search__submit"><div class="lsf-icon" id="search"></div></button>
+                                </form>
+                                <div class="other__executive">
+                                    <h3>歴代幹部</h3>
+                                    <ul>
+                                        <li v-repeat="exe_num | orderBy 'num'-1"><a href="member.html?executive_staffs={{$value}}">{{num}}年度幹部</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="r__member__detail">
+                        <h2>プロフィール</h2>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="td__temp">会員ナンバー</td>
+                                    <td class="td__user">
+                                        {{id}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td__temp">入学年度</td>
+                                    <td class="td__user">
+                                        {{age == "" ? "非公開" : age}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td__temp">性別</td>
+                                    <td class="td__user">
+                                        {{gender =="" ? "非公開" : gender}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td__temp">好きなもの</td>
+                                    <td class="td__user">
+                                        {{favorites =="" ? "非公開" : favorites}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td__temp">役職</td>
+                                    <td class="td__user">
+                                        {{job_title =="" ? "非公開" : job_title}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td__temp">pixiv</td>
+                                    <td class="td__user"><a href="{{pixiv}}" target="_blank">
+                                        {{pixiv == "" ? "非公開" : pixiv}}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td__temp">Twitter</td>
+                                    <td class="td__user"><a href="https://twitter.com/{{twitter}}" target="_blank">
+                                        {{twitter == "" ? "非公開" : twitter}}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td__temp">ひとこと</td>
+                                    <td class="td__user profile__word"><p v-repeat="profile">{{word}}</p></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+			</div>
+        </div>
+        <div class="fooder__wrapper">
+            <div class="f__menu">
+                <ul>
+                    <li><a href="../index.html">ホーム</a></li>
+                    <li><a href="http://ritsrbm.blog129.fc2.com/" target="_blank">ブログ</a></li>
+                    <li><a href="./activity.html">活動内容</a></li>
+                    <li><a href="./link.html">リンク</a></li>
+                    <li><a href="./member.html">会員紹介</a></li>
+                    <li><a href="./contact.html">連絡先</a></li>
+                </ul>
+            </div>
+        </div>
+	</body>
+</html>

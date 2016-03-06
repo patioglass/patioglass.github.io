@@ -1,0 +1,20 @@
+.all__record{
+    width: 100%;
+    text-align: left;
+}
+.all__record li{
+    width: 70%;
+    margin: 0 auto;
+    list-style:none;
+    border: 1px solid #ccc;
+    margin-top: 40px;
+    padding: 20px;
+    border-left: 7px double #ff2f2f;
+}
+.date{
+    margin-bottom: 30px;
+    border-bottom: 1px solid #444;
+}
+.lsf-icon:before{
+    color: #ff3f3f;
+}

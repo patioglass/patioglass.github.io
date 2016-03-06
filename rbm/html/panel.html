@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8"> 
+        <title>イベント情報 -RBM</title>
+        <link rel="stylesheet" type="text/css" href="../css/main.css">
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://vuejs.org/js/vue.min.js"></script>
+        <link rel="stylesheet" href="../css/lightbox.css" type="text/css" media="screen" />    
+        <script src="../js/lightbox.js" type="text/javascript"></script> 
+        <script src="../js/purl.js"></script>
+<<<<<<< HEAD
+        <script src="../js/panel.js" async></script>
+=======
+        <script src="../js/panel.js"></script>
+>>>>>>> origin/version1
+        <link rel="stylesheet" type="text/css" href="../css/panel.css">
+        <script>
+            $(function(){
+                $(".logo").bind("touchstart mousedown",function(){
+                    location.href="../index.html";
+                });
+            });
+        </script>
+	</head>
+	<body>
+		<div class="wrapper">
+            
+            <div class="h__message">
+                <img src="../img/logo.png" class="logo">
+                <h1>ーRBMー立命館琵琶湖草津漫画研究会</h1>
+            </div>
+           <div class="g__menu">
+                <ul>
+                    <li><a href="../index.html" class="lsf-icon" id="home" title="ホーム">ホーム</a></li>
+                    <li><a href="" class="lsf-icon" id="pen"title="ブログ">ブログ</a></li>
+                    <li><a href="./activity.html" class="lsf-icon" id="memo" title="活動内容">活動内容</a></li>
+                    <li><a href="./link.html" class="lsf-icon" id="color" title="リンク">リンク</a></li>
+                    <li><a href="./member.html" class="lsf-icon member__page" id="color" title="会員紹介">会員紹介</a></li>
+                    <li><a href="./contact.html" class="lsf-icon" id="mail"title="連絡先">連絡先</a></li>
+                </ul>
+            </div>
+            <div class="header__wrapper">
+                <div class="h__content">
+    
+                </div>
+            </div> 
+            
+ 
+            
+            
+			<div class="main__wrapper">
+                <div class="panel__wrapper"  v-with="season year rank_member">
+                    <h1>{{year}}年度「{{season =="school_festival" ? "学園祭パネル展" : "春のパネル展"}}」</h1>
+                    <div class="panel__ranking" v-repeat="kind">
+                        <h2>{{$value}}</h2>
+                            <div class="number{{$value}}" v-repeat="rank">
+                                <h3>{{$value}}位</h3>
+                                <a href="../img/panel/{{season}}/{{year}}/{{$parent.$value}}/{{$value}}_{{rank_member[$parent.$index][$value-1]}}.jpg" rel="lightbox">
+                                    <img src="../img/panel/{{season}}/{{year}}/{{$parent.$value}}/{{$value}}_{{rank_member[$parent.$index][$value-1]}}.jpg">
+                                </a>
+                                <div class="illustrator__detail">
+                                    <p>illustrator</p>
+                                    <a href="./userpage.html?id={{rank_member[$parent.$index][$value-1]}}" target="_blank">
+                                    <div v-repeat="member">
+                                        {{rank_member[$parent.$parent.$index][$parent.$value-1] == id ?name : ""}}
+                                    </div>
+                                    </a>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <div class="archive">
+                    <h4>アーカイブ</h4>
+                    <ul>
+                        <li v-repeat="archive"><a href="./panel.html?season={{season}}&year={{$value}}">{{$value}}年度</a></li>
+                    </ul>
+                </div>
+            </div>
+		
+        <div class="fooder__wrapper">
+            <div class="f__menu">
+                        <ul>
+                            <li><a href="../index.html">ホーム</a></li>
+                            <li><a href="">ブログ</a></li>
+                            <li><a href="./activity.html">活動内容</a></li>
+                            <li><a href="./link.html">リンク</a></li>
+                            <li><a href="./top_illusts.html">トップ絵</a></li>
+                            <li><a href="./contact.html">連絡先/依頼</a></li>
+                        </ul>
+            </div>
+
+        </div>
+	</body>
+</html>

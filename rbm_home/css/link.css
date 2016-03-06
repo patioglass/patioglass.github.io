@@ -1,0 +1,15 @@
+.link__list{
+    text-align: center;
+}
+.link__list li{
+       margin: 0 auto;
+    padding: 10px;
+    width: 50%;
+    list-style: none;
+    margin-top: 20px;
+    border-bottom: 2px solid #ccc;
+}
+.link__list a{
+    padding: 30px;
+    display: block;
+}

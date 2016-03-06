@@ -1,0 +1,122 @@
+
+.pict__wrapper{
+    width: 70%;
+    display: inline-block;
+    text-align: center;
+    vertical-align:top;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    text-align: left;
+}
+.pict__wrapper ul{
+    text-align: left;
+}
+.pict__wrapper li{
+    list-style: none;
+    width: 28%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
+    margin-top: 30px;
+    overflow: hidden;
+    background-size: cover;
+    text-align: center;
+    min-height: 150px;
+}
+.only_top{
+    padding: 40px 15px 20px 15px;
+}
+.plural_top{
+}
+.plural_top a{
+    display: block;
+    padding: 40px 15px 20px 15px;
+}
+.pict__wrapper img{
+    width:100%;
+    border:1px solid #fff; 
+}
+.pict__wrapper img:hover{
+    /* box-shadow */
+box-shadow:rgba(255, 41, 41, 0.65098) 0px 0px 4px 1px;
+-webkit-box-shadow:rgba(255, 41, 41, 0.65098) 0px 0px 4px 1px;
+-moz-box-shadow:rgba(255, 41, 41, 0.65098) 0px 0px 4px 1px;
+}
+.l__menu{
+    display: inline-block;
+    width: 24%;
+    text-align: left;
+}
+.l__menu li{
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    list-style: none;
+}
+.l__menu li a:after{
+    content:">"
+}
+.t__caption{
+    text-align: center;
+}
+.select__name{
+    width: 100%;
+}
+.t__info{
+    display: none;
+}
+.loading{
+    width: 10%;
+    margin: 0 auto;
+    text-align: center;
+}
+.top__illust__intro{
+    vertical-align: top;
+    display: inline-block;
+}
+.top__illust__intro a{
+    display:block;
+    width: 100%;
+    padding: 10px 20px 10px 10px;
+    border: 1px solid #ccc;
+    background: #fff;
+    margin-top: 50px;
+    font-size: 17px;
+}
+.now__top__pictures{
+    width:70%;
+    margin-top: 20px;
+    margin-left: 10%;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    display: inline-block;
+}
+.now__top__pictures li{
+    list-style: none;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 20px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #ccc;
+    
+}
+.now__top__pictures img{
+    vertical-align: top;
+    width:80%;
+    display: inline-block;
+}
+.now__top__pictures img:hover{
+        /* box-shadow */
+box-shadow:rgba(255, 41, 41, 0.65098) 0px 0px 4px 1px;
+-webkit-box-shadow:rgba(255, 41, 41, 0.65098) 0px 0px 4px 1px;
+-moz-box-shadow:rgba(255, 41, 41, 0.65098) 0px 0px 4px 1px;
+
+}
+.illustrator__name{
+    display: block;
+    margin-top: 10px;
+     color: #444;
+}
+.illustrator__name:hover{
+    text-decoration:underline;
+}
