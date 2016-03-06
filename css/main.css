@@ -76,3 +76,6 @@ footer{
 .event img{
     display: inline-block;
 }
+.col-md-4 img{
+    max-height:150px; 
+}
