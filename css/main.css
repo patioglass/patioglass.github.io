@@ -8,38 +8,61 @@
     top:0;
     left: 0;
 }
+html,body{
+    height: 100%;
+}
 body{
 	font-family: "font";
 	font-size: 14px;
 }
-
-a{text-decoration: none;}
-a:link{color: #ff4500;}
-a:visited{color: #ff4500;}
-a:hover{color:#66cdaa;}
-a:active{color:#66cdaa;}
-
 header{
-    overflow: hidden;
+    color: #444;
+    padding-top: 8em;
+}
+.top{
+    margin:0 auto;
     text-align: center;
-    background-image: url("../img/header.png");
-    background-size:cover;
-    background-repeat: no-repeat;
+    width: 90%;
 }
-header p{
-    font-size: 16px;
-    color: #929292;
+.contents{
+    margin-bottom: 15px;
+    border-left: 1px #444 solid;
 }
-nav{
-    margin: 0 0 30px 0;
-    padding: 10px 0;
-    text-align: center;
-    background: rgba(255,255,255,0.8);
+.media-caption{
+    margin-left: 1em;
 }
-nav ul li{
-    display: inline-block;
-    list-style: none;
-    margin: 0 20px;
+.introduction{
+    position: relative;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 19px;
+}
+.introduction:after, .introduction:before {
+    right: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.introduction:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-right-color: #fff;
+    border-width: 10px;
+    margin-top: -10px;
+}
+.introduction:before {
+    border-color: rgba(68, 68, 68, 0);
+    border-right-color: #ccc;
+    border-width: 11px;
+    margin-top: -11px;
+}
+.fade_animation{
+    display: none;
 }
 #icon{
     padding: 20px 0;
@@ -48,6 +71,10 @@ nav ul li{
 #icon img{
     max-width: 150px;
     border-radius: 100px;
+}
+.product_image{
+    width:100%;
+    min-width:100px;
 }
 #logo{
     max-width: 200px;
@@ -60,22 +87,4 @@ footer{
     text-align: center;
     background-color: #ccc;
     color: #666;
-}
-
-.mail{
-    border-radius: 10px;
-    padding: 40px 10px;
-    border:1px solid #666;
-}
-.e_detail{
-    max-width: 400px;
-    margin-left: 40px;
-    margin-right: 40px;
-    display: inline-block;
-}
-.event img{
-    display: inline-block;
-}
-.col-md-4 img{
-    min-height:214px; 
 }
