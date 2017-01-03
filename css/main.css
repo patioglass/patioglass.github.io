@@ -24,6 +24,9 @@ header{
     text-align: center;
     width: 90%;
 }
+.thumbnail{
+    min-height: 280px;
+}
 .contents{
     margin-bottom: 15px;
     border-left: 1px #444 solid;
