@@ -32,7 +32,7 @@ export default class MusicList extends ListPage {
             isMounted: false
         });
         MusicStore.removeListener('fetch', this.fetchMusicList);
-        MusicStore.removeListener('apiError', this.apiError);
+        MusicStore.removeListener('apiError', this.handleApiError);
     }
 
     fetchMusicList() {
