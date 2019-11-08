@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 const customStyles = {
     content : {
@@ -13,43 +13,23 @@ const customStyles = {
    }
 };
 Modal.setAppElement('#app');
-export default class ModalWindow extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            className: 'loadingImage',
-            modalIsOpen: false
-        };
-        this.afterOpenModal = this.afterOpenModal.bind(this);
-    }
-    handleIllustLoaded() {
-        this.setState({
-            className: ''
-        });
-    }
+export default function ModalWindow(props) {
+    const { modalIsOpen, changeModalState, illustId } = props;
+    const illustPath = "https://drive.google.com/uc?id=" + illustId;
 
-    afterOpenModal() {
-    }
-
-    render() {
-        const { modalIsOpen, changeModalState, illustId } = this.props;
-        const illustPath = "https://drive.google.com/uc?id=" + illustId;
-        return (
-            <Modal
-                isOpen={modalIsOpen}
-                onAfterOpen={this.afterOpenModal}
-                onRequestClose={() => { changeModalState(false) }}
-                style={customStyles}
-                contentLabel="Modal"
-            >
-                <div class='modal__illust'>
-                    <img
-                        src={illustPath}
-                        onLoad={this.handleIllustLoaded.bind(this)}
-                    />
-                </div>
-                <p onClick={() => { changeModalState(false)} } class='modal__close-button'>とじる</p>
-            </Modal>
-        );
-    }
+    return (
+        <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={() => { changeModalState(false) }}
+            style={customStyles}
+            contentLabel="Modal"
+        >
+            <div class='modal__illust'>
+                <img
+                    src={illustPath}
+                />
+            </div>
+            <p onClick={() => { changeModalState(false)} } class='modal__close-button'>とじる</p>
+        </Modal>
+    );
 }

@@ -87,11 +87,9 @@ footer {
     }
     @include tab {
         max-width: 98%;
-        padding: 0px 30px 30px 30px;
     }
     @include pc {
         max-width: 1300px;
-        padding: 0px 30px 30px 30px;
     }
     margin-right: auto;
     margin-left: auto;
