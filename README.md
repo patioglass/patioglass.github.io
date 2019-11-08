@@ -19,5 +19,6 @@ sourceブランチにソースコードがおいてある(masterにはgh-pages�
     git add -p
     git commit -m 'something'
 
-    # commit deployとともにpushされ反映される
+    # build以下がadd,commitされる
+    # masterブランチにbuild以下, sourceブランチに今までのコミットがpushされる)
     npm run deploy
