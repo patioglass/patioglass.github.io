@@ -1,0 +1,146 @@
+$sp: 0px;
+$tab: 680px;
+$pc: 1025px;
+
+@mixin pc {
+    @media (min-width: ($pc)) {
+      @content;
+    }
+}
+@mixin tab {
+    @media screen and (min-width: ($tab)) and (max-width: ($pc - 1)) {
+      @content;
+    }
+}
+@mixin sp {
+    @media screen and (min-width: ($sp)) and (max-width: ($tab - 1)) {
+      @content;
+    }
+}
+
+header {
+    height: 70vh;
+    position: absolute;
+    @include sp {
+        background: url(/img/top/header_sp.png) no-repeat;
+        background-size: cover;
+    }
+    @include tab {
+        background: url(/img/top/header_tab.png) no-repeat;
+        background-size: cover;
+    }
+    @include pc {
+        background: url(/img/top/header.png) no-repeat;
+        background-size: cover;
+    }
+    margin: 0 auto;
+    padding-top: 8em;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    
+    .top {
+        video {
+            opacity: 0.5;
+            z-index: -2;
+            width: 100%;
+        }
+    }
+    .headline {
+        position: absolute;
+        @include sp {
+            margin: 0 auto;
+            position: absolute;
+            bottom: 40%;
+            width: 100%;
+        }
+        @include tab {
+            left: 15%;
+            bottom: 40%;
+        }
+        @include pc {
+            left: 30%;
+            bottom: 45%;
+        }
+        text-shadow:
+            1px 1px 1px #fff,
+            1px -1px 1px #fff,
+            -1px 1px 1px #fff,
+            -1px -1px 1px #fff,
+            0 0 22px #fff;
+    }
+}
+
+.aboutContent {
+    text-align: left;
+    ul {
+        padding: 0px 17px;
+        width: 100%;
+    }
+    li {
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 20px;
+        img {
+            width: 100%;
+        }
+    }
+    h3 {
+        font-family: 'Spinnaker', sans-serif;
+    }
+
+    &__icon {
+        text-align: center;
+        vertical-align: middle;
+        padding: 30px 0px 30px 0px;
+    
+        img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            vertical-align: middle;
+            text-align: center;
+        }
+    }
+    
+    &__socialIcon {
+        float: right;
+        a {
+            margin-left: 28px;
+            img {
+                width: 35px;
+                height: 35px;
+            }  
+        }
+    }
+}
+
+
+
+.workTable {
+    &__date {
+        text-align: center;
+    }
+    th {
+        min-width: 200px;
+    }
+}
+
+.animeted__fadeIn {
+    animation: fadeIn 2s ease 0s 1 normal;
+    -webkit-animation: fadeIn 2s ease 0s 1 normal;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+.contact {
+    text-align: center;
+}

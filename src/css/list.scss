@@ -1,0 +1,199 @@
+$sp: 480px;
+$tab: 680px;
+$pc: 1024px;
+
+@mixin pc {
+    @media (min-width: ($pc)) {
+      @content;
+    }
+}
+@mixin tab {
+    @media screen and (min-width: ($tab)) and (max-width: ($pc - 1)) {
+      @content;
+    }
+}
+@mixin sp {
+    @media screen and (min-width: ($sp)) and (max-width: ($tab - 1)) {
+      @content;
+    }
+}
+
+.modal {
+    &__close-button {
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 20px;
+        background: #5bbdff;
+        width: 150px;
+        border-radius: 4px;
+        padding: 1em 1em;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    &__illust {
+        text-align: center;
+        img {
+            @include sp {
+                max-width: 90%;
+                max-height: 600px;
+            }
+            @include tab {
+                max-width: 100%;
+                max-height: 800px;
+            }
+            @include pc {
+                max-width: 100%;
+                max-height: 950px;
+            }
+        }
+    }
+}
+
+.list {
+    margin-top: 55px;
+    min-height: 1080px;
+    text-align: center;
+    &__header {
+        padding: 10px;
+        line-height: 3;
+        h2 {
+            font-family: 'Spinnaker', sans-serif;
+            letter-spacing: 0.25em;
+        }
+    }
+    &__header-text {
+        margin-top: 15px;
+        padding: 10px;
+    }
+    &__contents {
+        margin: 0;
+        padding: 0;
+
+        &--loading {
+            background: url('/img/loadingImage.gif');
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        &-illust {
+            display: inline-block;
+            list-style: none;
+            margin-top: 15px;
+            left: 0;
+            cursor: pointer;
+            img {
+                width: 100%;
+                height: 410px;
+                object-fit: cover;
+                -moz-transition: -moz-transform 0.1s linear;
+                -webkit-transition: -webkit-transform 0.1s linear;
+                -o-transition: -o-transform 0.1s linear;
+                -ms-transition: -ms-transform 0.1s linear;
+                transition: transform 0.1s linear;
+        
+                &:hover {
+                    -webkit-transform: scale(1.035);
+                    -moz-transform: scale(1.035);
+                    -o-transform: scale(1.035);
+                    -ms-transform: scale(1.035);
+                    transform: scale(1.035);
+                }
+            }
+        }
+        &-music {
+            padding: 10px;
+            margin-bottom: 50px;
+            iframe {
+                max-width: 100%;
+                @include sp {
+                    zoom: 1.6;
+                }
+                @include tab {
+                    zoom: 2;
+                }
+                @include pc {
+                    zoom: 2;
+                }
+            }
+        }
+        &-programming {
+            margin-bottom: 2em;
+            text-align: left;
+            img {
+                width: 100%;
+                height: 300px;
+                object-fit: cover;
+                -moz-transition: -moz-transform 0.1s linear;
+                -webkit-transition: -webkit-transform 0.1s linear;
+                -o-transition: -o-transform 0.1s linear;
+                -ms-transition: -ms-transform 0.1s linear;
+                transition: transform 0.1s linear;
+            }
+        }
+    }
+}
+
+.pagenation {
+    margin: 3em 0;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: .5em;
+    p {
+        display: inline-block;
+        text-decoration: none;
+        margin: 0 0.8em 2em;
+        color: #36393d;
+        cursor: pointer;
+    }
+    .grayMode {
+        opacity: 0.5;
+        cursor: text !important;
+    }
+    .pager-prev {
+        &:before {
+            content: "";
+            display: inline-block;
+            width: 2em;
+            height: 2em;
+            vertical-align: middle;
+            -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+            border-left: 1px solid #36393d;
+            border-top: 1px solid #36393d;
+            position: relative;
+            bottom: .05em;
+        }
+    }
+    .pager-next {
+        &:after {
+            content: "";
+            display: inline-block;
+            width: 2em;
+            height: 2em;
+            vertical-align: middle;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            border-right: 1px solid #36393d;
+            border-top: 1px solid #36393d;
+            position: relative;
+            bottom: .05em;
+        }
+    }
+    &__page--active {
+        color:#ff5a99 !important;
+        font-size: 1.3em;
+    }
+}
+
+.effect-fade {
+    transform : translate(0, 45px);
+    transition : all 300ms;
+}
+.effect-fade.effect-scroll {
+    opacity : 1;
+    transform : translate(0, 0);
+}
+
+.ReactModal__Overlay {
+    z-index: 3;
+}
