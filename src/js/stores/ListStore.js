@@ -1,6 +1,7 @@
 import { EventEmitter } from 'events';
+import dispatcher       from '../dispatcher';
 
-export default class ListStore extends EventEmitter {
+class ListStore extends EventEmitter {
     constructor() {
         super();
         this.list = [];
@@ -46,3 +47,8 @@ export default class ListStore extends EventEmitter {
         }
     }
 }
+
+const listStore= new ListStore;
+dispatcher.register(listStore.handleActions.bind(listStore));
+
+export default listStore;

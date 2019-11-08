@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import WorkTab                        from './WorkTab';
-import WorkStore                      from '../../stores/WorkStore';
+import ListStore                      from '../../stores/ListStore';
 import * as WorkActions               from '../../actions/ListActions';
 
 export default function Works(props) {
@@ -12,21 +12,21 @@ export default function Works(props) {
     // actionでAPIからデータを取得したら反映する
     const fetchWorks = () => {
         if (isMounted) {
-            setWorks(WorkStore.getList());
-            props.changeLoading(WorkStore.getLoading());
+            setWorks(ListStore.getList());
+            props.changeLoading(ListStore.getLoading());
         }
     }
 
     useEffect(() => {
         // mount
         WorkActions.fetchList(apiHost);
-        WorkStore.on('fetch', fetchWorks);
+        ListStore.on('fetch', fetchWorks);
         setMounted(true);
 
         // unmount
         return () => {
             setMounted(false);
-            WorkStore.removeListener('fetch', fetchWorks);
+            ListStore.removeListener('fetch', fetchWorks);
         }
     }, []);
 

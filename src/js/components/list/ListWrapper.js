@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link }                       from 'react-router-dom';
 
-import IllustStore                    from '../../stores/IllustStore';
+import ListStore                      from '../../stores/ListStore';
 import * as ListActions               from '../../actions/ListActions';
 
 import Pagenation                     from './Pagenation'; 
@@ -48,17 +48,17 @@ export default function ListWrapper(props) {
         setMounted(true);
         updateShowPage(pageCount);
 
-        IllustStore.on('fetch', fetchImageList);
-        IllustStore.on('loading', updateLoading);
-        IllustStore.on('apiError', handleApiError);
+        ListStore.on('fetch', fetchImageList);
+        ListStore.on('loading', updateLoading);
+        ListStore.on('apiError', handleApiError);
         ListActions.fetchList(apiHost, { year: year });
 
         // unmount
         return () => {
             setMounted(false);
-            IllustStore.removeListener('fetch', fetchImageList);
-            IllustStore.removeListener('loading', updateLoading);
-            IllustStore.removeListener('apiError', handleApiError);
+            ListStore.removeListener('fetch', fetchImageList);
+            ListStore.removeListener('loading', updateLoading);
+            ListStore.removeListener('apiError', handleApiError);
         }
     }, [year]);
 
@@ -76,16 +76,16 @@ export default function ListWrapper(props) {
 
     const fetchImageList = () => {
         if (isMounted) {
-            const nextStatus = !IllustStore.getLoading() ? 'animeted__fadeIn' : 'hide';
-            setList(IllustStore.getList());
-            updateLoadingProps(IllustStore.getLoading());
+            const nextStatus = !ListStore.getLoading() ? 'animeted__fadeIn' : 'hide';
+            setList(ListStore.getList());
+            updateLoadingProps(ListStore.getLoading());
             setComponentStatus(nextStatus);
         }
     }
 
     const updateLoading = () => {
         if (isMounted) {
-            updateLoadingProps(IllustStore.getLoading());
+            updateLoadingProps(ListStore.getLoading());
             setComponentStatus('hide');
         }
     }
