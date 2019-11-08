@@ -49,6 +49,7 @@ module.exports = [
                 { from: 'src/index.html' },
                 { from: 'src/img/favicon.ico' },
                 { from: 'src/img/', to: './img' },
+                { from: 'CNAME' },
             ]),
         ],
         optimization: {
