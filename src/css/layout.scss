@@ -82,18 +82,20 @@ footer {
 
 .wrapper {
     @include sp {
-        max-width: 95%;
+        max-width: 100%;
+        padding: 0px 20px 20px 20px;
     }
     @include tab {
         max-width: 98%;
+        padding: 0px 30px 30px 30px;
     }
     @include pc {
         max-width: 1300px;
+        padding: 0px 30px 30px 30px;
     }
     margin-right: auto;
     margin-left: auto;
     background: #ffffff;
-    padding: 0px 30px 30px 30px;
 }
 
 .loading {
