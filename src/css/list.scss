@@ -40,11 +40,11 @@ $pc: 1024px;
             }
             @include tab {
                 max-width: 100%;
-                max-height: 800px;
+                max-height: 700px;
             }
             @include pc {
                 max-width: 100%;
-                max-height: 950px;
+                max-height: 750px;
             }
         }
     }
