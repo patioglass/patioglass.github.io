@@ -3,7 +3,8 @@ import { Link }           from 'react-router-dom';
 
 import Pagenation         from '../components/list/Pagenation'; 
 import Loading            from '../components/layout/Loading';
-import ListComponent      from '../components/list/ListComponent';
+import Error              from '../components/layout/Error';
+import ListPage           from './ListPage';
 import IllustHeader       from '../components/list/IllustHeader';
 import IllustDropDownMenu from '../components/list/IllustDropDownMenu';
 import Illust             from '../components/list/Illust';
@@ -11,7 +12,7 @@ import Illust             from '../components/list/Illust';
 import * as IllustActions from '../actions/ListActions';
 import IllustStore        from '../stores/IllustStore';
 
-export default class IllustList extends ListComponent {
+export default class IllustList extends ListPage {
     constructor() {
         super();
         this.fetchImageList = this.fetchImageList.bind(this);
@@ -27,6 +28,7 @@ export default class IllustList extends ListComponent {
         this.currentYear = this.props.match.params.year;
         IllustStore.on('fetch', this.fetchImageList);
         IllustStore.on('loading', this.updateLoading);
+        IllustStore.on('apiError', this.handleApiError);
         IllustActions.fetchList(this.apiHost, { year: this.currentYear });
     }
 
@@ -36,6 +38,7 @@ export default class IllustList extends ListComponent {
         });
         IllustStore.removeListener('fetch', this.fetchImageList);
         IllustStore.removeListener('loading', this.updateLoading);
+        IllustStore.removeListener('apiError', this.handleApiError);
     }
 
     // タブで表示年代が変わったタイミングで呼ばれる
@@ -64,7 +67,7 @@ export default class IllustList extends ListComponent {
     }
 
     render() {
-        const { list, showNum, pageCount, loading, componentStatus } = this.state;
+        const { list, showNum, pageCount, loading, componentStatus, apiError } = this.state;
         const  currentYear = this.props.match.params.year;
         const IllustComponents = list.map((image, index) => {
             if (index < showNum * (pageCount + 1) && showNum * (pageCount) <= index ) {
@@ -79,8 +82,8 @@ export default class IllustList extends ListComponent {
                 <section class='wrapper list'>
                     <div class={componentStatus}>
                         <IllustHeader />
-                        {list.length === 0 ? (
-                            <p>情報の取得に失敗しました。再度リロードしてみてください</p>
+                        {apiError ? (
+                            <Error></Error>
                         ) : (
                             <>
                             <IllustDropDownMenu currentSelectedYear={currentYear} updateList={this.updateList.bind(this)} />
@@ -88,10 +91,10 @@ export default class IllustList extends ListComponent {
                                 {IllustComponents}
                             </ul>
                             <Pagenation pageCount={pageCount} listNum={list.length} showNum={showNum} updateShowPage={(pageCount) => { this.updateShowPage(pageCount); }} />
+                            <Link to='/' class='btn list__topButton'>トップに戻る</Link>
                             </>
                         )}
                     </div>
-                    <Link to='/' class='btn list__topButton'>トップに戻る</Link>
                 </section>
                 )}
             </>

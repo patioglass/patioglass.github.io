@@ -2,15 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Loading                 from '../components/layout/Loading';
+import Error                   from '../components/layout/Error';
 import Pagenation              from '../components/list/Pagenation';
-import ListComponent           from '../components/list/ListComponent';
+import ListPage                from './ListPage';
 import ProgrammingHeader       from '../components/list/ProgrammingHeader';
 import Programming             from '../components/list/Programming';
 
 import * as ProgrammingActions from '../actions/ListActions';
 import ProgrammingStore        from '../stores/ProgrammingStore';
 
-export default class ProgrammingList extends ListComponent {
+export default class ProgrammingList extends ListPage {
     constructor() {
         super();
         this.fetchProgrammingList = this.fetchProgrammingList.bind(this);
@@ -23,6 +24,7 @@ export default class ProgrammingList extends ListComponent {
         });
         ProgrammingActions.fetchList(this.apiHost);
         ProgrammingStore.on('fetch', this.fetchProgrammingList);
+        ProgrammingStore.on('apiError', this.handleApiError);
     }
 
     componentWillUnmount() {
@@ -30,6 +32,7 @@ export default class ProgrammingList extends ListComponent {
             isMounted: false
         });
         ProgrammingStore.removeListener('fetch', this.fetchProgrammingList);
+        ProgrammingStore.removeListener('apiError', this.handleApiError);
     }
 
     fetchProgrammingList() {
@@ -44,7 +47,7 @@ export default class ProgrammingList extends ListComponent {
     }
 
     render() {
-        const { loading, componentStatus, list, showNum, pageCount } = this.state;
+        const { loading, componentStatus, list, showNum, pageCount, apiError } = this.state;
         const ProgrammingComponents = list.map((programming, index) => {
             if (index < showNum * (pageCount + 1) && showNum * (pageCount) <= index ) {
                 return <Programming key={index} {...programming} />
@@ -58,8 +61,8 @@ export default class ProgrammingList extends ListComponent {
                 ) : (
                 <section class='wrapper list'>
                     <ProgrammingHeader />
-                    {list.length === 0 ? (
-                        <p>情報の取得に失敗しました。再度リロードしてみてください</p>
+                    {apiError ? (
+                        <Error></Error>
                     ) : (
                         <>
                         <div class={componentStatus}>
@@ -67,11 +70,10 @@ export default class ProgrammingList extends ListComponent {
                                 {ProgrammingComponents}
                             </div>
                             <Pagenation pageCount={pageCount} listNum={list.length} showNum={showNum} updateShowPage={(pageCount) => { this.updateShowPage(pageCount); }} />
-
+                            <Link to='/' class='btn list__topButton'>トップに戻る</Link>
                         </div>
                         </>
                     )}
-                    <Link to='/' class='btn list__topButton'>トップに戻る</Link>
                 </section>
                 )}
             </>

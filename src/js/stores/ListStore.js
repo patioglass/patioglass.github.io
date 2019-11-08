@@ -39,6 +39,7 @@ export default class ListStore extends EventEmitter {
             case 'REQUEST_FETCH_ERROR': {
                 this.updateLoading(false);
                 this.updateList([]);
+                this.emit('apiError');
                 console.log('API error');
                 break;
             }

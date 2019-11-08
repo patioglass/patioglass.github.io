@@ -10,6 +10,16 @@ export default class ListComponent extends React.Component {
             loading: true,
             componentStatus: '',
             isMounted: false,
+            apiError: false,
+        }
+        this.handleApiError = this.handleApiError.bind(this);
+    }
+
+    handleApiError() {
+        if (this.state.isMounted) {
+            this.setState({
+                apiError: true
+            });
         }
     }
 
