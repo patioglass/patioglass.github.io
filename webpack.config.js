@@ -48,6 +48,7 @@ module.exports = [
             new CopyWebpackPlugin([
                 { from: 'src/index.html' },
                 { from: 'src/img/favicon.ico' },
+                { from: 'src/img/', to: './img' },
             ]),
         ],
         optimization: {
