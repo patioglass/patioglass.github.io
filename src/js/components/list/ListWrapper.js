@@ -46,8 +46,7 @@ export default function ListWrapper(props) {
     useEffect(() => {
         // mount
         setMounted(true);
-        updateShowPage(pageCount);
-
+        updateShowPage(0);
         ListStore.on('fetch', fetchImageList);
         ListStore.on('loading', updateLoading);
         ListStore.on('apiError', handleApiError);
