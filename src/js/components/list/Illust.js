@@ -3,7 +3,7 @@ import ModalWindow                          from './ModalWindow';
 
 export default function Illust(props) {
     const { url } = props;
-    const [className, setClassName] = useState('list__contents--loading');
+    const [className, setClassName] = useState('effect-fade list__contents--loading');
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const changeModalState = (state) => {
