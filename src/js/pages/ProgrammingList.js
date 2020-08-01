@@ -2,7 +2,6 @@ import React, { useState }     from 'react';
 
 import Wrapper                 from '../components/layout/Wrapper';
 import ListWrapper             from '../components/list/ListWrapper';
-import Error                   from '../components/layout/Error';
 import Loading                 from '../components/layout/Loading';
 import ProgrammingHeader       from '../components/list/ProgrammingHeader';
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import Wrapper             from '../components/layout/Wrapper';
 import ListWrapper         from '../components/list/ListWrapper';
-import Error               from '../components/layout/Error';
 import MusicHeader         from '../components/list/MusicHeader';
 import Loading             from '../components/layout/Loading';
 

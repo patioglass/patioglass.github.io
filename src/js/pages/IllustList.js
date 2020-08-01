@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 import Wrapper                        from '../components/layout/Wrapper';
-import Error                          from '../components/layout/Error';
 import IllustHeader                   from '../components/list/IllustHeader';
 import IllustDropDownMenu             from '../components/list/IllustDropDownMenu';
 import Loading                        from '../components/layout/Loading';
