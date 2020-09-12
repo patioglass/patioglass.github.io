@@ -5,12 +5,13 @@ import About                              from '../components/top/About';
 import Works                              from '../components/top/Works';
 import Contact                            from '../components/top/Contact';
 import Loading                            from '../components/layout/Loading';
+import Maintenance                        from '../components/layout/Maintenance';
 
 export default function Top() {
     const [componentStatus, setComponentStatus] = useState('');
     const [loading, setLoading] = useState(true);
     const [isMounted, setMounted] = useState(true);
-
+    // メンテナンス
     const changeLoading = (state) => {
         if (isMounted) {
             const nextStatus = !state ? 'animeted__fadeIn' : 'hide';
@@ -22,6 +23,7 @@ export default function Top() {
     useEffect(() => {
         // mount
         setMounted(true);
+        setLoading(false);
 
         // unmount
         return () => {
@@ -35,10 +37,13 @@ export default function Top() {
                 <Loading />
             ) : ''}
             <div class={componentStatus}>
-                <Jumbotron />
+                {/* <Jumbotron /> */}
+                <br />
+                <br />
+                <br />
                 <Wrapper>
                     <About />
-                    <Works changeLoading={(state) => { changeLoading(state); }} />
+                    <Maintenance />
                     <Contact />
                 </Wrapper>
             </div>

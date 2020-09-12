@@ -38,19 +38,19 @@ module.exports = [
             ]
         },
         output: {
-            path: path.resolve(__dirname, 'build'),
+            path: path.resolve(__dirname, 'docs'),
             filename: "client.min.js"
         },
         plugins: [
             new MiniCssExtractPlugin({
               filename: 'style.css',
             }),
-            new CopyWebpackPlugin([
+            new CopyWebpackPlugin({patterns:[
                 { from: 'src/index.html' },
                 { from: 'src/img/favicon.ico' },
                 { from: 'src/img/', to: './img' },
                 { from: 'CNAME' },
-            ]),
+            ]}),
         ],
         optimization: {
             minimizer: [new TerserJSPlugin({}),new OptimizeCSSAssetsPlugin({})],
