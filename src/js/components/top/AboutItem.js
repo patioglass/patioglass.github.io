@@ -12,7 +12,7 @@ export default function AboutItem (props)  {
             <div class='aboutContent__detail'>
                 <h3>{name}</h3>
                 <p>{detail}</p>
-                <Link to={'/list/'+ name + '/' + yearParameter} class="btn btn-dark">もっとみる</Link>
+                {/* <Link to={'/list/'+ name + '/' + yearParameter} class="btn btn-dark">もっとみる</Link> */}
             </div>
         </li>
     );
