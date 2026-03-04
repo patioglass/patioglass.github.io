@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { worksAtom, loadingAtom, selectedTagAtom, tagOptions, showCommissionOnlyAtom, includeSecondaryCreationAtom, fetchWorks, getTagColor } from '../store/atoms';
+import { worksAtom, loadingAtom, selectedTagAtom, tagOptions, showCommissionOnlyAtom, includeSecondaryCreationAtom, viewModeAtom, fetchWorks, getTagColor } from '../store/atoms';
 import headerPartsImg from '../assets/header_parts_002.webp';
 
 
@@ -10,6 +10,7 @@ export const Works = () => {
   const [selectedTag, setSelectedTag] = useAtom(selectedTagAtom);
   const [showCommissionOnly, setShowCommissionOnly] = useAtom(showCommissionOnlyAtom);
   const [includeSecondaryCreation, setIncludeSecondaryCreation] = useAtom(includeSecondaryCreationAtom);
+  const [viewMode, setViewMode] = useAtom(viewModeAtom);
 
   // タグと依頼物フィルターでフィルタリング
   const filteredWorks = works.filter(work => {
@@ -54,7 +55,7 @@ export const Works = () => {
       </div>
 
       <div className="container mx-auto px-4">
-        {/* フィルター */}
+        {/* フィルターと表示切り替え */}
         <div className="flex justify-center items-center gap-6 mb-8 flex-wrap">
           {/* タグ絞り込み */}
           <select
@@ -90,6 +91,34 @@ export const Works = () => {
             />
             <span className="text-gray-700">二次創作を含める</span>
           </label>
+          
+          {/* 表示形式切り替え */}
+          <div className="flex items-center gap-2 bg-gray-200 p-1 rounded-lg">
+            <button
+              onClick={() => setViewMode('list')}
+              className={`px-4 py-2 rounded-md transition-all ${
+                viewMode === 'list'
+                  ? 'bg-white text-gray-800 shadow-md'
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`px-4 py-2 rounded-md transition-all ${
+                viewMode === 'grid'
+                  ? 'bg-white text-gray-800 shadow-md'
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {loading ? (
@@ -100,7 +129,7 @@ export const Works = () => {
           <div className="text-center text-gray-500 py-12">
             該当する作品がありません
           </div>
-        ) : (
+        ) : viewMode === 'list' ? (
           <div className="max-w-4xl mx-auto space-y-6">
             {filteredWorks.map((work) => (
               <div
@@ -110,12 +139,12 @@ export const Works = () => {
                 <div className="flex flex-col md:flex-row">
                   {/* 画像エリア */}
                   {work.imageUrl && (
-                    <div className="md:w-64 md:flex-shrink-0 relative">
+                    <div className="md:w-64 md:flex-shrink-0 relative overflow-hidden">
                       {work.isCommission && (
-                        <div className="absolute top-3 left-3 z-10">
-                          <span className="px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg">
+                        <div className="absolute top-0 left-0 z-10">
+                          <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-8 py-1.5 shadow-lg transform -translate-x-6 translate-y-2 -rotate-45">
                             依頼制作
-                          </span>
+                          </div>
                         </div>
                       )}
                       <img
@@ -152,9 +181,13 @@ export const Works = () => {
                       
                       {/* 依頼物バッジ（画像なしの場合） */}
                       {!work.imageUrl && work.isCommission && (
-                        <span className="px-3 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold rounded-full shadow-lg flex-shrink-0">
-                          依頼制作
-                        </span>
+                        <div className="relative flex-shrink-0 w-20 h-20 overflow-hidden">
+                          <div className="absolute top-0 left-0">
+                            <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-8 py-1.5 shadow-lg transform -translate-x-6 translate-y-2 -rotate-45">
+                              依頼制作
+                            </div>
+                          </div>
+                        </div>
                       )}
                     </div>
                     
@@ -180,6 +213,92 @@ export const Works = () => {
                       </div>
                     )}
                   </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          // タイル形式（3列グリッド）
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredWorks.map((work) => (
+              <div
+                key={work.id}
+                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
+              >
+                {/* 画像エリア */}
+                {work.imageUrl && (
+                  <div className="relative w-full h-48 overflow-hidden">
+                    {work.isCommission && (
+                      <div className="absolute top-0 left-0 z-10">
+                        <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-8 py-1.5 shadow-lg transform -translate-x-6 translate-y-2 -rotate-45">
+                          依頼制作
+                        </div>
+                      </div>
+                    )}
+                    <img
+                      src={`/images/${work.imageUrl.split('=').pop()}.webp`}
+                      alt={work.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                
+                {/* コンテンツエリア */}
+                <div className="p-4 flex-1 flex flex-col">
+                  {/* タグ表示 */}
+                  {work.tags && work.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {work.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className={`px-2 py-0.5 rounded-full text-xs font-medium ${getTagColor(tag)}`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <h3 className="text-lg font-bold text-gray-800 flex-1">{work.title}</h3>
+                    {!work.imageUrl && work.isCommission && (
+                      <div className="relative flex-shrink-0 w-16 h-16 overflow-hidden">
+                        <div className="absolute top-0 left-0">
+                          <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-6 py-1 shadow-lg transform -translate-x-4 translate-y-1 -rotate-45">
+                            依頼制作
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {work.date && (
+                    <p className="text-xs text-gray-400 mb-2">{work.date}</p>
+                  )}
+                  
+                  <p className="text-sm text-gray-600 mb-3 leading-relaxed line-clamp-3 flex-1">
+                    {work.description}
+                  </p>
+
+                  {/* リンク */}
+                  {work.links && work.links.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-auto">
+                      {work.links.map((link, index) => (
+                        <a
+                          key={index}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-white text-xs rounded-lg transition-colors font-medium"
+                        >
+                          {link.label}
+                          <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

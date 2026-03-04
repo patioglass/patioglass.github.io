@@ -53,6 +53,15 @@ export const Contact = () => {
                     @patioglass
                   </a>
                   <p className="text-gray-500 text-sm mt-1">最新情報はこちらで発信中</p>
+                  <br />
+                  <a
+                    href="https://twitter.com/eropatio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-700 transition-colors"
+                  >
+                    @eropatio (成人向け)
+                  </a>
                 </div>
               </div>
               
@@ -69,6 +78,34 @@ export const Contact = () => {
                     className="text-blue-500 hover:text-blue-700 transition-colors"
                   >
                     patioglass.fanbox.cc
+                  </a>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-gray-50 transition-colors">
+                <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span className="text-pink-600 text-2xl font-bold">🎨</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-800 mb-1">Skeb</h3>
+                  <a
+                    href="https://skeb.jp/@patioglass"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-700 transition-colors"
+                  >
+                    skeb.jp/@patioglass
+                  </a>
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-800 mb-1">Skeb(成人向け)</h3>
+                  <a
+                    href="https://skeb.jp/@eropatio"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500 hover:text-blue-700 transition-colors"
+                  >
+                    skeb.jp/@eropatio
                   </a>
                 </div>
               </div>
