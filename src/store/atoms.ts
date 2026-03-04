@@ -31,6 +31,7 @@ export const loadingAtom = atom<boolean>(false);
 export const selectedTagAtom = atom<string>('すべて');
 export const showCommissionOnlyAtom = atom<boolean>(false); // 依頼物のみ表示
 export const includeSecondaryCreationAtom = atom<boolean>(false); // 二次創作を含める
+export const viewModeAtom = atom<'list' | 'grid'>('grid'); // 表示形式（リスト/タイル）
 
 // タグごとの色を取得する関数
 export const getTagColor = (tag: string): string => {

@@ -83,90 +83,21 @@ export const Home = () => {
           </div>
         </div>
       </section>
-      {/* Profile Section */}
-      <section className="container mx-auto px-4 py-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
-            <div className="flex flex-col md:flex-row items-center gap-8">
-              <img className="w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0" src={iconImg} />
-              <div className="flex-1 text-center md:text-left">
-                <h3 className="text-2xl font-bold mb-2 text-gray-800">ぱちお(patioglass)</h3>
-                <div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
-                  <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">絵・漫画</span>
-                  <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">プログラミング</span>
-                  <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">音楽</span>
-                </div>
-                <p className="text-gray-700 leading-relaxed">
-                    「PatioGlass」で活動中。イラストや漫画の制作、Web開発、音楽制作など多岐にわたる分野で活動しています。<br />
-                    依頼などございましたらお気軽にご連絡ください。
-                </p>
-              </div>
-            </div>
-            <div className="mt-4 text-right">
-              <a
-                href="https://forms.gle/ca1hva36dk2W5MT7A"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-slate-500 to-pink-500 hover:from-slate-600 hover:to-pink-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              >
-                <span>📝</span>
-                <span>ご依頼・お問い合わせ</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Recent Works Section */}
-      <section className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold mb-6 text-gray-800 relative pb-3 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-20 after:h-1 after:bg-gradient-to-r after:from-blue-400 after:to-purple-400 after:rounded-full">
-            最近の作品
-          </h2>
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <ul className="space-y-4">
-              {works.slice(0, 3).map((work) => (
-                <li key={work.id} className="border-l-4 border-blue-400 pl-4 py-2 hover:bg-gray-50 transition-colors">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                        <span className="text-sm text-gray-500 font-medium min-w-[100px]">
-                          {work.date || '日付未定'}
-                        </span>
-                        {work.tags && work.tags.length > 0 && (
-                          <span className={`inline-block px-2 py-1 text-xs rounded ${getTagColor(work.tags[0])}`}>
-                            {work.tags[0]}
-                          </span>
-                        )}
-                        <h3 className="font-bold text-gray-800">{work.title}</h3>
-
-                      </div>
-                      <p className="text-sm text-gray-600 mt-1 pl-0 sm:pl-[100px]">
-                        {work.description}
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 text-center">
-              <button
-                onClick={() => handleSeeMore('すべて')}
-                className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300"
-              >
-                <span>すべての作品を見る</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="mt-10 text-center">
+        <a
+          href="https://forms.gle/ca1hva36dk2W5MT7A"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-slate-500 to-pink-500 hover:from-slate-600 hover:to-pink-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+        >
+          <span>📝</span>
+          <span>ご依頼・お問い合わせ</span>
+        </a>
+      </div>
 
       {/* Overview Section - 4 Grid */}
-      <section className="container mx-auto px-4">
-        <div className="max-w-7xl mx-auto">
+      <section className="container mx-auto px-4 mt-10">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-8 text-gray-800 relative pb-3 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-35 after:h-1 after:bg-gradient-to-r after:from-slate-400 after:to-pink-400 after:rounded-full">やってること</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition-shadow">
@@ -300,6 +231,76 @@ export const Home = () => {
                   </svg>
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Profile Section */}
+      <section className="container mx-auto px-4 py-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
+            <div className="flex flex-col md:flex-row items-center gap-8">
+              <img className="w-32 h-32 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0" src={iconImg} />
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl font-bold mb-2 text-gray-800">ぱちお(patioglass)</h3>
+                <div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
+                  <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-medium">絵・漫画</span>
+                  <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">プログラミング</span>
+                  <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium">音楽</span>
+                </div>
+                <p className="text-gray-700 leading-relaxed">
+                    「PatioGlass」で活動中。イラストや漫画の制作、Web開発、音楽制作など多岐にわたる分野で活動しています。<br />
+                    依頼などございましたらお気軽にご連絡ください。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Recent Works Section */}
+      <section className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold mb-6 text-gray-800 relative pb-3 inline-block after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-20 after:h-1 after:bg-gradient-to-r after:from-blue-400 after:to-purple-400 after:rounded-full">
+            最近の作品
+          </h2>
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <ul className="space-y-4">
+              {works.slice(0, 3).map((work) => (
+                <li key={work.id} className="border-l-4 border-blue-400 pl-4 py-2 hover:bg-gray-50 transition-colors">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                        <span className="text-sm text-gray-500 font-medium min-w-[100px]">
+                          {work.date || '日付未定'}
+                        </span>
+                        {work.tags && work.tags.length > 0 && (
+                          <span className={`inline-block px-2 py-1 text-xs rounded ${getTagColor(work.tags[0])}`}>
+                            {work.tags[0]}
+                          </span>
+                        )}
+                        <h3 className="font-bold text-gray-800">{work.title}</h3>
+
+                      </div>
+                      <p className="text-sm text-gray-600 mt-1 pl-0 sm:pl-[100px]">
+                        {work.description}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => handleSeeMore('すべて')}
+                className="inline-flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                <span>すべての作品を見る</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
