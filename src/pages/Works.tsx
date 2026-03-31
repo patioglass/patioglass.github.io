@@ -38,7 +38,16 @@ export const Works = () => {
     if (works.length === 0) {
       loadWorks();
     }
-  }, [works.length, setWorks, setLoading]);
+
+    // モバイルサイズの場合は初期表示をリスト形式に設定
+    const handleRouteMount = () => {
+      if (window.innerWidth < 768) {
+        setViewMode('list');
+      }
+    };
+
+    handleRouteMount();
+  }, [works.length, setWorks, setLoading, setViewMode]);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -49,8 +58,8 @@ export const Works = () => {
           className="w-40 h-40 object-contain rounded-full shadow-md"
         />
         <div className="text-center md:text-left">
-          <h1 className="text-4xl font-bold mb-4 text-gray-800">Works</h1>
-          <p className="text-gray-600 text-lg">これまでに作ったもの</p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-3 text-gray-800">Works</h1>
+          <p className="text-gray-600 text-base">これまでに作ったもの</p>
         </div>
       </div>
 
@@ -173,7 +182,7 @@ export const Works = () => {
                           </div>
                         )}
                         
-                        <h2 className="text-2xl font-bold text-gray-800 mb-1">{work.title}</h2>
+                        <h2 className="text-xl font-bold text-gray-800 mb-1">{work.title}</h2>
                         {work.date && (
                           <p className="text-sm text-gray-400 mb-3">{work.date}</p>
                         )}
@@ -191,7 +200,7 @@ export const Works = () => {
                       )}
                     </div>
                     
-                    <p className="text-gray-600 mb-4 leading-relaxed">{work.description}</p>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">{work.description}</p>
 
                     {/* 複数リンク表示 */}
                     {work.links && work.links.length > 0 && (
@@ -202,7 +211,7 @@ export const Works = () => {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white text-sm rounded-lg transition-colors font-medium"
+                            className="inline-flex items-center px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-white text-xs rounded-lg transition-colors font-medium"
                           >
                             {link.label}
                             <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -223,82 +232,71 @@ export const Works = () => {
             {filteredWorks.map((work) => (
               <div
                 key={work.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
+                className="group aspect-square relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-[1.02]"
+                onClick={() => {
+                  if (work.links && work.links.length > 0) {
+                    window.open(work.links[0].url, '_blank');
+                  }
+                }}
               >
-                {/* 画像エリア */}
-                {work.imageUrl && (
-                  <div className="relative w-full h-48 overflow-hidden">
-                    {work.isCommission && (
-                      <div className="absolute top-0 left-0 z-10">
-                        <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-8 py-1.5 shadow-lg transform -translate-x-6 translate-y-2 -rotate-45">
-                          依頼制作
-                        </div>
-                      </div>
-                    )}
-                    <img
-                      src={`/images/${work.imageUrl.split('=').pop()}.webp`}
-                      alt={work.title}
-                      className="w-full h-full object-cover"
-                    />
+                {work.imageUrl ? (
+                  <img
+                    src={`/images/${work.imageUrl.split('=').pop()}.webp`}
+                    alt={work.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                    <span className="text-gray-400">{work.title}</span>
                   </div>
                 )}
                 
-                {/* コンテンツエリア */}
-                <div className="p-4 flex-1 flex flex-col">
-                  {/* タグ表示 */}
-                  {work.tags && work.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mb-2">
-                      {work.tags.map((tag, index) => (
-                        <span
-                          key={index}
-                          className={`px-2 py-0.5 rounded-full text-xs font-medium ${getTagColor(tag)}`}
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                {work.isCommission && (
+                  <div className="absolute top-0 left-0 z-10">
+                    <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-8 py-1.5 shadow-lg transform -translate-x-6 translate-y-2 -rotate-45">
+                      依頼制作
                     </div>
-                  )}
-                  
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <h3 className="text-lg font-bold text-gray-800 flex-1">{work.title}</h3>
-                    {!work.imageUrl && work.isCommission && (
-                      <div className="relative flex-shrink-0 w-16 h-16 overflow-hidden">
-                        <div className="absolute top-0 left-0">
-                          <div className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-6 py-1 shadow-lg transform -translate-x-4 translate-y-1 -rotate-45">
-                            依頼制作
-                          </div>
-                        </div>
+                  </div>
+                )}
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
+                  <div className="space-y-3">
+                    {work.date && (
+                      <p className="text-gray-200 text-xs font-medium">{work.date}</p>
+                    )}
+                    {work.tags && work.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1">
+                        {work.tags.map((tag, index) => (
+                          <span key={index} className={`inline-block px-2 py-1 text-xs rounded font-medium ${getTagColor(tag)}`}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <h3 className="text-white font-semibold text-sm leading-tight">{work.title}</h3>
+                    {work.description && (
+                      <p className="text-gray-200 text-xs leading-snug line-clamp-2">{work.description}</p>
+                    )}
+                    {work.links && work.links.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-2">
+                        {work.links.map((link, index) => (
+                          <a
+                            key={index}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="inline-flex items-center px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-white text-xs rounded-lg transition-colors font-medium"
+                          >
+                            {link.label}
+                            <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </a>
+                        ))}
                       </div>
                     )}
                   </div>
-                  
-                  {work.date && (
-                    <p className="text-xs text-gray-400 mb-2">{work.date}</p>
-                  )}
-                  
-                  <p className="text-sm text-gray-600 mb-3 leading-relaxed line-clamp-3 flex-1">
-                    {work.description}
-                  </p>
-
-                  {/* リンク */}
-                  {work.links && work.links.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-auto">
-                      {work.links.map((link, index) => (
-                        <a
-                          key={index}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-white text-xs rounded-lg transition-colors font-medium"
-                        >
-                          {link.label}
-                          <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                        </a>
-                      ))}
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
