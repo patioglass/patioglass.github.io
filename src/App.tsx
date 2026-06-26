@@ -3,7 +3,6 @@ import { Routes, Route, useLocation, HashRouter } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { Works } from './pages/Works';
 {/*import { Bio } from './pages/Bio';*/}
-import { Contact } from './pages/Contact';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 
@@ -31,7 +30,6 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/works" element={<Works />} />
             {/*<Route path="/bio" element={<Bio />} />*/}
-            <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
         <Footer />

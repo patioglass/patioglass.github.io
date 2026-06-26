@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
-import { worksAtom, loadingAtom, selectedTagAtom, tagOptions, showCommissionOnlyAtom, includeSecondaryCreationAtom, viewModeAtom, fetchWorks, getTagColor } from '../store/atoms';
+import { worksAtom, loadingAtom, selectedTagAtom, tagOptions, showCommissionOnlyAtom, includeSecondaryCreationAtom, viewModeAtom, fetchWorks, getTagColor, type Work } from '../store/atoms';
 import headerPartsImg from '../assets/header_parts_002.webp';
 
 
@@ -11,6 +11,10 @@ export const Works = () => {
   const [showCommissionOnly, setShowCommissionOnly] = useAtom(showCommissionOnlyAtom);
   const [includeSecondaryCreation, setIncludeSecondaryCreation] = useAtom(includeSecondaryCreationAtom);
   const [viewMode, setViewMode] = useAtom(viewModeAtom);
+  const [selectedWork, setSelectedWork] = useState<Work | null>(null);
+
+  const getWorkImageSrc = (imageUrl?: string) =>
+    imageUrl ? `/images/${imageUrl.split('=').pop()}.webp` : '';
 
   // タグと依頼物フィルターでフィルタリング
   const filteredWorks = works.filter(work => {
@@ -48,6 +52,27 @@ export const Works = () => {
 
     handleRouteMount();
   }, [works.length, setWorks, setLoading, setViewMode]);
+
+  useEffect(() => {
+    if (!selectedWork) {
+      return;
+    }
+
+    const originalOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setSelectedWork(null);
+      }
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedWork]);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -139,7 +164,7 @@ export const Works = () => {
             該当する作品がありません
           </div>
         ) : viewMode === 'list' ? (
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="mx-auto space-y-4">
             {filteredWorks.map((work) => (
               <div
                 key={work.id}
@@ -157,9 +182,9 @@ export const Works = () => {
                         </div>
                       )}
                       <img
-                        src={`/images/${work.imageUrl.split('=').pop()}.webp`}
+                        src={getWorkImageSrc(work.imageUrl)}
                         alt={work.title}
-                        className="w-full h-48 md:h-full object-cover"
+                        className="aspect-[4/3] w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                     </div>
                   )}
@@ -184,7 +209,7 @@ export const Works = () => {
                         
                         <h2 className="text-xl font-bold text-gray-800 mb-1">{work.title}</h2>
                         {work.date && (
-                          <p className="text-sm text-gray-400 mb-3">{work.date}</p>
+                          <p className="text-sm text-gray-400">{work.date}</p>
                         )}
                       </div>
                       
@@ -228,20 +253,16 @@ export const Works = () => {
           </div>
         ) : (
           // タイル形式（3列グリッド）
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filteredWorks.map((work) => (
               <div
                 key={work.id}
                 className="group aspect-square relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-[1.02]"
-                onClick={() => {
-                  if (work.links && work.links.length > 0) {
-                    window.open(work.links[0].url, '_blank');
-                  }
-                }}
+                onClick={() => setSelectedWork(work)}
               >
                 {work.imageUrl ? (
                   <img
-                    src={`/images/${work.imageUrl.split('=').pop()}.webp`}
+                    src={getWorkImageSrc(work.imageUrl)}
                     alt={work.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -277,29 +298,108 @@ export const Works = () => {
                     {work.description && (
                       <p className="text-gray-200 text-xs leading-snug line-clamp-2">{work.description}</p>
                     )}
-                    {work.links && work.links.length > 0 && (
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {work.links.map((link, index) => (
-                          <a
-                            key={index}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="inline-flex items-center px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-white text-xs rounded-lg transition-colors font-medium"
-                          >
-                            {link.label}
-                            <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                            </svg>
-                          </a>
-                        ))}
-                      </div>
-                    )}
+                    <p className="text-gray-100 text-xs font-medium mt-2">クリックで詳細を見る</p>
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {selectedWork && (
+          <div
+            className="fixed inset-0 z-50 bg-black/70 p-4 md:p-8"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${selectedWork.title} の詳細`}
+            onClick={() => setSelectedWork(null)}
+          >
+            <div className="mx-auto flex h-full max-w-5xl items-center justify-center">
+              <div
+                className="w-full overflow-hidden rounded-2xl bg-white shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+                  <h2 className="text-base font-semibold text-gray-800">作品詳細</h2>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedWork(null)}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700"
+                    aria-label="モーダルを閉じる"
+                  >
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr]">
+                  <div className="bg-gray-100">
+                    {selectedWork.imageUrl ? (
+                      <img
+                        src={getWorkImageSrc(selectedWork.imageUrl)}
+                        alt={selectedWork.title}
+                        className="h-full max-h-[70vh] w-full object-contain"
+                      />
+                    ) : (
+                      <div className="flex h-[45vh] items-center justify-center px-6 text-center text-gray-400">
+                        画像が登録されていません
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="max-h-[70vh] overflow-y-auto p-5">
+                    <h3 className="text-xl font-bold text-gray-800">{selectedWork.title}</h3>
+                    {selectedWork.date && (
+                      <p className="mt-1 text-sm text-gray-400">{selectedWork.date}</p>
+                    )}
+
+                    {selectedWork.tags && selectedWork.tags.length > 0 && (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {selectedWork.tags.map((tag, index) => (
+                          <span
+                            key={index}
+                            className={`px-3 py-1 rounded-full text-xs font-medium ${getTagColor(tag)}`}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {selectedWork.description && (
+                      <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-gray-600">
+                        {selectedWork.description}
+                      </p>
+                    )}
+
+                    <div className="mt-6">
+                      <p className="mb-3 text-sm font-semibold text-gray-700">関連リンク</p>
+                      {selectedWork.links && selectedWork.links.length > 0 ? (
+                        <div className="space-y-2">
+                          {selectedWork.links.map((link, index) => (
+                            <a
+                              key={index}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="group flex items-center justify-between rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+                            >
+                              <span className="font-medium">{link.label}</span>
+                              <svg className="h-4 w-4 text-gray-400 group-hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </svg>
+                            </a>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-sm text-gray-500">リンクは登録されていません。</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSetAtom } from 'jotai';
 import { selectedTagAtom, tagOptions } from '../store/atoms';
+import headerImg from '../assets/header.webp';
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,6 +18,7 @@ export const Header = () => {
   };
 
   return (
+    <>
     <header className="bg-white sticky top-0 z-50">
       <nav className="container mx-auto max-w-6xl px-4 py-4">
         <div className="flex items-center justify-start md:justify-center">
@@ -85,15 +87,6 @@ export const Header = () => {
               </Link>
             </li>
             */}
-            <li>
-              <Link
-                to="/contact"
-                className="flex flex-col items-center text-gray-600 hover:text-gray-900 transition-colors tracking-wider"
-              >
-                <span className="text-lg">Contact</span>
-                <span className="text-gray-400 text-xs">お問い合わせ</span>
-              </Link>
-            </li>
           </ul>
         </div>
 
@@ -150,19 +143,24 @@ export const Header = () => {
               </Link>
             </li>
             */}
-            <li>
-              <Link
-                to="/contact"
-                onClick={() => setIsMenuOpen(false)}
-                className="flex flex-col text-gray-600 hover:text-gray-900 py-2 tracking-wider font-medium"
-              >
-                <span className="text-lg">Contact</span>
-                <span className="text-gray-400 text-xs">お問い合わせ</span>
-              </Link>
-            </li>
           </ul>
         )}
       </nav>
     </header>
+    <section
+      className="relative bg-no-repeat bg-cover bg-center md:bg-top-left text-white py-20 px-4 min-h-[33vh] text-align-center flex items-center justify-center"
+      style={{ backgroundImage: `url(${headerImg})` }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/30 to-black/40" />
+      <div className="container mx-auto text-center relative z-10">
+        <h1 className="text-5xl lg:text-6xl font-light mb-5 tracking-tight drop-shadow-xl">
+          PatioGlass Official Site
+        </h1>
+        <p className="text-base md:text-lg font-normal tracking-normal drop-shadow mb-8">
+          PatioGlass の活動記録や作品、連絡先などをまとめています。
+        </p>
+      </div>
+    </section>
+    </>
   );
 };
