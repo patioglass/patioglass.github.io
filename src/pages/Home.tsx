@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import iconImg from '../assets/icon.webp';
 import homeKisetsugirlImg from '../assets/home_kisetsugirl.webp';
 import homePixivImg from '../assets/home_pixiv.webp';
 import homeYurikanImg from '../assets/home_yurikan.webp';
-import { fetchWorks, getTagColor,  worksAtom } from '../store/atoms';
+import { fetchWorks, getTagColor,  worksAtom, type Work } from '../store/atoms';
+import { ModalWork } from '../components/ModalWork';
 
 const socialLinks = [
   { label: 'X (Twitter)', description: '@patioglass', href: 'https://x.com/patioglass' },
@@ -27,6 +28,9 @@ const activityLinks = [
 
 export const Home = () => {
   const [works, setWorks] = useAtom(worksAtom);
+  const [selectedWork, setSelectedWork] = useState<Work | null>(null);
+  const getWorkImageSrc = (imageUrl?: string) =>
+    imageUrl ? `/images/${imageUrl.split('=').pop()}.webp` : '';
 
   useEffect(() => {
     const loadWorks = async () => {
@@ -149,15 +153,11 @@ export const Home = () => {
                   <div
                     key={work.id}
                     className="group aspect-[4/3] relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-[1.02]"
-                    onClick={() => {
-                      if (work.links && work.links.length > 0) {
-                        window.open(work.links[0].url, '_blank');
-                      }
-                    }}
+                    onClick={() => setSelectedWork(work)}
                   >
                     {work.imageUrl ? (
                       <img
-                        src={`/images/${work.imageUrl.split('=').pop()}.webp`}
+                        src={getWorkImageSrc(work.imageUrl)}
                         alt={work.title}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
@@ -230,6 +230,7 @@ export const Home = () => {
           </div>
         </div>
       </section>
+      <ModalWork selectedWork={selectedWork} setSelectedWork={setSelectedWork} getWorkImageSrc={getWorkImageSrc} />
     </div>
   );
 };
