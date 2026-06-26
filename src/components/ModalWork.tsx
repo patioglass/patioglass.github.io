@@ -34,15 +34,15 @@ export const ModalWork = ({ selectedWork, setSelectedWork, getWorkImageSrc }: Mo
 
     return (
         <div
-            className="fixed inset-0 z-50 bg-black/70 p-4 md:p-8"
+            className="fixed inset-0 z-50 bg-black/70 p-4 md:p-8 overflow-y-auto h-screen"
             role="dialog"
             aria-modal="true"
             aria-label={`${selectedWork.title} の詳細`}
             onClick={() => setSelectedWork(null)}
             >
-            <div className="mx-auto flex max-w-5xl items-center justify-center overflow-y">
+            <div className="mx-auto flex max-w-5xl items-center justify-center">
                 <div
-                className="w-full h-full rounded-2xl bg-white shadow-2xl"
+                className="w-full rounded-2xl bg-white shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
                 >
                 <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
