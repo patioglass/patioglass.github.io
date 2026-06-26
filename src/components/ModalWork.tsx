@@ -40,7 +40,7 @@ export const ModalWork = ({ selectedWork, setSelectedWork, getWorkImageSrc }: Mo
             aria-label={`${selectedWork.title} の詳細`}
             onClick={() => setSelectedWork(null)}
             >
-            <div className="mx-auto flex max-w-5xl items-center justify-center overflow-y-auto">
+            <div className="mx-auto flex max-w-5xl items-center justify-center overflow-y">
                 <div
                 className="w-full h-full rounded-2xl bg-white shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
