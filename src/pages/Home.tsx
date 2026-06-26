@@ -11,7 +11,8 @@ const socialLinks = [
   { label: 'Bluesky', description: '@patioglass.bsky.social', href: 'https://bsky.app/profile/patioglass.bsky.social' },
   { label: 'pixiv', description: '全年齢向けアカウント', href: 'https://www.pixiv.net/users/2188539' },
   { label: 'pixiv (R-18)', description: '18歳以上の方向け', href: 'https://www.pixiv.net/users/16664908' },
-  { label: 'FANBOX', description: 'ブログ・支援サイト', href: 'https://patioglass.fanbox.cc/' }
+  { label: 'FANBOX', description: 'ブログ・支援サイト', href: 'https://patioglass.fanbox.cc/' },
+  { label: 'Youtube', description: 'オリジナル楽曲制作', href: 'https://www.youtube.com/@PatioGlass_Official_Music' }
 ];
 
 const activityLinks = [
