@@ -40,9 +40,9 @@ export const ModalWork = ({ selectedWork, setSelectedWork, getWorkImageSrc }: Mo
             aria-label={`${selectedWork.title} の詳細`}
             onClick={() => setSelectedWork(null)}
             >
-            <div className="mx-auto flex h-full max-w-5xl items-center justify-center">
+            <div className="mx-auto flex max-w-5xl items-center justify-center overflow-y-auto">
                 <div
-                className="w-full overflow-hidden rounded-2xl bg-white shadow-2xl"
+                className="w-full h-full rounded-2xl bg-white shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
                 >
                 <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
@@ -74,7 +74,7 @@ export const ModalWork = ({ selectedWork, setSelectedWork, getWorkImageSrc }: Mo
                     )}
                     </div>
 
-                    <div className="max-h-[70vh] overflow-y-auto p-5">
+                    <div className="max-h-[70vh] p-5">
                     <h3 className="text-xl font-bold text-gray-800">{selectedWork.title}</h3>
                     {selectedWork.date && (
                         <p className="mt-1 text-sm text-gray-400">{selectedWork.date}</p>

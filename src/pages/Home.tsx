@@ -117,9 +117,9 @@ export const Home = () => {
                       href="https://forms.gle/oa3csdsyDuTCVWE58"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex items-center justify-center gap-3 px-6 py-3 rounded-xl border border-pink-400 bg-pink-500 text-white font-semibold shadow-sm transition-all duration-300 hover:bg-pink-600 hover:border-pink-500 hover:shadow-sm hover:-translate-y-0.5"
+                      className="group inline-flex items-center justify-center gap-3 px-3 py-3 rounded-xl border border-pink-400 bg-pink-500 text-white font-semibold shadow-sm transition-all duration-300 hover:bg-pink-600 hover:border-pink-500 hover:shadow-sm hover:-translate-y-0.5"
                     >
-                      <span>ご依頼・お問い合わせフォーム</span>
+                      <span>ご依頼フォーム</span>
                       <span
                         aria-hidden="true"
                         className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-white/20 text-white transition-transform duration-300 group-hover:translate-x-0.5"
