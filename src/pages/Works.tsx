@@ -54,27 +54,6 @@ export const Works = () => {
     handleRouteMount();
   }, [works.length, setWorks, setLoading, setViewMode]);
 
-  useEffect(() => {
-    if (!selectedWork) {
-      return;
-    }
-
-    const originalOverflow = document.body.style.overflow;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setSelectedWork(null);
-      }
-    };
-
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = originalOverflow;
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedWork]);
-
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="flex items-center justify-center gap-6 mb-8">
