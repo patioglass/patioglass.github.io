@@ -28,7 +28,7 @@ export const ModalWork = ({ selectedWork, setSelectedWork, getWorkImageSrc }: Mo
           document.body.style.overflow = originalOverflow;
           window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [selectedWork]);
+    }, [selectedWork, setSelectedWork]);
 
     if (!selectedWork) return null;
 
