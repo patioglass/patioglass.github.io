@@ -60,31 +60,37 @@ jobs:
           mkdir -p public/images
           mkdir -p /tmp/original_images
 
+          # Secret にクエリ文字列が含まれていても action を正しく追加する
+          case "$GAS_API_URL" in
+            *\?*) IMAGES_API_URL="${GAS_API_URL}&action=images" ;;
+            *)    IMAGES_API_URL="${GAS_API_URL}?action=images" ;;
+          esac
+
           # 画像APIからデータ取得
-          HTTP_CODE=$(curl -L -s -w "%{http_code}" -o /tmp/images.json "${GAS_API_URL}?action=images")
+          HTTP_CODE=$(curl -L -sS -w "%{http_code}" -o /tmp/images.json "$IMAGES_API_URL")
 
           # HTTPステータスコードチェック
-          if [ "$HTTP_CODE" -ne 200 ]; then
+          if [ "$HTTP_CODE" -eq 404 ]; then
+            # 画像APIが未公開でも、コミット済み画像が揃っていれば更新を続行できる
+            echo "Warning: Images API returned HTTP 404; using committed images"
+          elif [ "$HTTP_CODE" -ne 200 ]; then
             echo "Error: Images API returned HTTP $HTTP_CODE"
             exit 1
-          fi
-
-          # JSONとして有効かチェック
-          if ! jq empty /tmp/images.json 2>/dev/null; then
-            echo "Error: Invalid JSON response from images API"
-            cat /tmp/images.json
-            exit 1
-          fi
-
-          # 画像の数を取得
-          IMAGE_COUNT=$(jq 'length' /tmp/images.json)
-          echo "Found $IMAGE_COUNT images"
-
-          if [ "$IMAGE_COUNT" -eq 0 ]; then
-            echo "No images to process"
           else
+            # JSONとして有効かチェック
+            if ! jq -e 'type == "array"' /tmp/images.json >/dev/null 2>&1; then
+              echo "Error: Invalid JSON response from images API"
+              cat /tmp/images.json
+              exit 1
+            fi
+
+            # 画像の数を取得
+            IMAGE_COUNT=$(jq 'length' /tmp/images.json)
+            echo "Found $IMAGE_COUNT images"
+
             # 各画像をbase64デコードしてwebpに変換
             for i in $(seq 0 $((IMAGE_COUNT - 1))); do
+              [ "$IMAGE_COUNT" -eq 0 ] && break
               FILE_NAME=$(jq -r ".[$i].name" /tmp/images.json)
               MIME_TYPE=$(jq -r ".[$i].mimeType" /tmp/images.json)
               BASE64_DATA=$(jq -r ".[$i].data" /tmp/images.json)
@@ -115,6 +121,20 @@ jobs:
             done
 
             echo "Successfully converted and saved $IMAGE_COUNT images as webp"
+          fi
+
+          # APIを利用できない場合も含め、全作品の画像が揃っていることを保証する
+          MISSING_IMAGES=0
+          while IFS= read -r FILE_NAME; do
+            if [ ! -f "public/images/${FILE_NAME}.webp" ]; then
+              echo "Error: Missing image for Drive file: $FILE_NAME"
+              MISSING_IMAGES=$((MISSING_IMAGES + 1))
+            fi
+          done < <(jq -r '.[].imageUrl // empty | capture("[?&]id=(?<id>[^&]+)").id' public/data/works.json)
+
+          if [ "$MISSING_IMAGES" -ne 0 ]; then
+            echo "Error: $MISSING_IMAGES referenced image(s) are unavailable"
+            exit 1
           fi
 
       - name: Check if data changed
